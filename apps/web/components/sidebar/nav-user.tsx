@@ -30,6 +30,8 @@ import {
   useSidebar,
 } from "@workspace/ui/components/sidebar"
 
+import { useClerk } from "@clerk/nextjs";
+
 export function NavUser({
   user,
 }: {
@@ -40,6 +42,7 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { signOut } = useClerk();
 
   return (
     <SidebarMenu>
@@ -102,8 +105,8 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
+            <DropdownMenuItem onClick={() => signOut()}>
+              <LogOut/>
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

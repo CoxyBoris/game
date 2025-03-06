@@ -1,3 +1,5 @@
+"use client"
+
 import { Calendar, Home, Inbox, Search, Settings, OctagonAlert } from "lucide-react"
  
 import {
@@ -13,6 +15,8 @@ import {
 } from "@workspace/ui/components/sidebar"
 
 import { NavUser } from "@/components/sidebar/nav-user"
+
+import { useClerk } from "@clerk/nextjs";
  
 // Menu items.
 const items = [
@@ -37,16 +41,19 @@ const items = [
     icon: Search,
   },
 ]
-
-const data = {
-  user: {
-    name: "Boris T",
-    email: "boris@borz.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-}
  
 export function AppSidebar() {
+  const { user: clerkUser } = useClerk();
+  if (!clerkUser) return null;
+
+  const data = {
+    user: {
+      name: clerkUser.fullName || "",
+      email: clerkUser.primaryEmailAddress?.emailAddress || "",
+      avatar: clerkUser.imageUrl || "",
+    },
+  }
+  
   return (
     <Sidebar>
       <SidebarContent>
