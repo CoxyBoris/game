@@ -6,7 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 
 import { ClerkAuthMiddleware } from './auth/clerk.middleware';
 import { TodoModule } from './todo/todo.module';
-
+import { UserModule } from './user/user.module';
+import { ClerkModule } from './webhook/clerk/clerk.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,7 +22,9 @@ import { TodoModule } from './todo/todo.module';
       introspection: process.env.NODE_ENV === 'development',
       path: '/graphql', // Explicitly set the path
     }),
+    ClerkModule,
     TodoModule,
+    UserModule,
   ],
 })
 export class AppModule implements NestModule {

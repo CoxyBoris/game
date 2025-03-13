@@ -11,10 +11,6 @@ interface Request extends ExpressRequest {
 @Injectable()
 export class ClerkAuthMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log(req.path);
-    console.log(req.method);
-    console.log(process.env.NODE_ENV);
-    console.log(req.body);
     // Skip auth for GraphQL playground
     if (process.env.NODE_ENV === 'development') {
       console.log("skipping auth");
