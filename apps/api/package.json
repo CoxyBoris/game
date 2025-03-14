@@ -27,7 +27,7 @@
     "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.11",
     "@nestjs/graphql": "^13.0.3",
-    "@nestjs/mongoose": "^10.1.0",
+    "@nestjs/mongoose": "^11.0.1",
     "@nestjs/platform-express": "^10.4.15",
     "@workspace/logger": "workspace:*",
     "express": "^4.21.2",
