@@ -36,7 +36,7 @@ export const columns: ColumnDef<Todo>[] = [
   },
   {
     accessorKey: "text",
-    header: "Text",
+    header: "Texts",
   },
   {
     accessorKey: "completed",
