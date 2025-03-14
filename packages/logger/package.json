@@ -2,6 +2,8 @@
   "name": "@workspace/logger",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "build": "tsc",
