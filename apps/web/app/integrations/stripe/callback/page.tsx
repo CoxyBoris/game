@@ -33,5 +33,5 @@ export default function StripeCallbackPage() {
     finishOAuth();
   }, [searchParams]);
 
-  return <p className="p-6 text-sm">Finishing Stripe connection...</p>;
+  return <p className="p-6 text-sm">Finishing Stripe connection...</p>
 }

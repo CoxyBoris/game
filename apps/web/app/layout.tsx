@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google"
+import { Suspense } from "react"
 
 import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
 import { SidebarProvider, SidebarTrigger } from "@workspace/ui/components/sidebar"
-import { AppSidebar } from "@/components/sidebar/sidebar"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -27,9 +27,11 @@ export default function RootLayout({
       >
         <Providers>
           <SidebarProvider>
+          <Suspense fallback={<div>Loading...</div>}>
             <main className="flex flex-1">
               {children}
             </main>
+            </Suspense>
           </SidebarProvider>
         </Providers>
       </body>
