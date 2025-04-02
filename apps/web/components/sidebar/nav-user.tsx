@@ -2,7 +2,7 @@
 
 import {
   BadgeCheck,
-  Bell,
+  Settings,
   ChevronsUpDown,
   CreditCard,
   LogOut,
@@ -30,6 +30,7 @@ import {
   useSidebar,
 } from "@workspace/ui/components/sidebar"
 
+import { useRouter } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
 
 export function NavUser({
@@ -43,6 +44,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const { signOut } = useClerk();
+  const router = useRouter();
 
   return (
     <SidebarMenu>
@@ -84,24 +86,24 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/checkout")}>
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/account")}>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/billing")}>
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+              <DropdownMenuItem onClick={() => router.push("/integrations")}>
+                <Settings />
+                Integrations
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

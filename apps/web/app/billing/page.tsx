@@ -9,7 +9,7 @@ import { AppSidebar } from "@/components/sidebar/sidebar"
 
 import { auth } from "@clerk/nextjs/server";
 
-export default async function AccountPage() {
+export default async function BillingPage() {
   const { userId } = await auth();
 
   if (!userId) {

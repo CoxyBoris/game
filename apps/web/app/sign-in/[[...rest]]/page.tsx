@@ -9,8 +9,9 @@ export default function Page() {
           <a href="#" className="flex items-center gap-2 font-medium">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <div className="size-4" />
+              <img className="h-9 w-9" src="/logo.png"/>
             </div>
-            Acme Inc.
+            Revzilla
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">

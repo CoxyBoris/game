@@ -1,9 +1,10 @@
 "use client"
 
-import { Calendar, Home, Inbox, Search, Settings, OctagonAlert } from "lucide-react"
+import { ChartColumnIncreasing, HandCoins, Ambulance, SunSnow, Gem } from "lucide-react"
  
 import {
   Sidebar,
+  SidebarHeader,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -21,24 +22,24 @@ import { useClerk } from "@clerk/nextjs";
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "#",
-    icon: Home,
+    icon: ChartColumnIncreasing,
   },
   {
-    title: "Vital",
+    title: "Revenue Trends",
     url: "#",
-    icon: OctagonAlert,
+    icon: SunSnow,
   },
   {
-    title: "Calendar",
+    title: "Invoices & Payments",
     url: "#",
-    icon: Calendar,
+    icon: HandCoins,
   },
   {
-    title: "Tasks",
+    title: "Recovery",
     url: "#",
-    icon: Search,
+    icon: Ambulance,
   },
 ]
  
@@ -56,9 +57,20 @@ export function AppSidebar() {
   
   return (
     <Sidebar>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
+              <a href="#">
+                <img className="h-9 w-9" src="/logo.png"/>
+                <span className="text-primary font-semibold text-2xl">Revzilla</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
