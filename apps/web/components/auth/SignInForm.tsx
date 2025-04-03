@@ -8,6 +8,8 @@ import { Label } from "@workspace/ui/components/label";
 import { useRouter } from "next/navigation";
 import { cn } from "@workspace/ui/lib/utils";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export default function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -20,7 +22,7 @@ export default function SignInForm() {
 
   const searchParams = useSearchParams();
   const [successMessage, setSuccessMessage] = useState("");
-  
+
   useEffect(() => {
     const message = searchParams.get("message");
     if (message === "passwordResetSuccess") {
@@ -28,7 +30,7 @@ export default function SignInForm() {
         setSuccessMessage("Password reset successful!");
       });
     }
-  }, [searchParams]);
+  }, [searchParams, signOut]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,8 +43,8 @@ export default function SignInForm() {
         await setActive({ session: result.createdSessionId });
         router.push("/"); // Redirect after login
       }
-    } catch (err: any) {
-      setError(err.errors[0]?.message || "Failed to sign in");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     }
   };
 
@@ -53,35 +55,48 @@ export default function SignInForm() {
         {error && <p className="text-red-500">{error}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
         <p className="text-balance text-sm text-muted-foreground">
-            Enter your email below to login to your account
+          Enter your email below to login to your account
         </p>
       </div>
       <div className="grid gap-6">
         <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="grid gap-2">
-            <div className="flex items-center">
+          <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <a
-                href="/forgot-password"
-                className="ml-auto text-sm underline-offset-4 hover:underline"
+            <Link
+              href="/forgot-password"
+              className="ml-auto text-sm underline-offset-4 hover:underline"
             >
-                Forgot your password?
-            </a>
-            </div>
-            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              Forgot your password?
+            </Link>
+          </div>
+          <Input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
         <Button type="submit" className="w-full">
-            Login
+          Login
         </Button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="/sign-up" className="underline underline-offset-4">
+        <Link href="/sign-up" className="underline underline-offset-4">
           Sign up
-        </a>
+        </Link>
       </div>
     </form>
   );

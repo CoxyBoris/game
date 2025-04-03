@@ -7,6 +7,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { cn } from "@workspace/ui/lib/utils";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export default function VerifyEmailPage() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -22,13 +23,13 @@ export default function VerifyEmailPage() {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
       });
-      
+
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
         router.push("/");
       }
-    } catch (err: any) {
-      setError(err.errors[0]?.message || "Failed to verify email");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     }
   };
 
@@ -40,7 +41,8 @@ export default function VerifyEmailPage() {
             <h1 className="text-2xl font-bold">Verify your email</h1>
             {error && <p className="text-red-500">{error}</p>}
             <p className="text-balance text-sm text-muted-foreground">
-              We've sent a verification code to your email address. Please enter it below.
+              We sent a verification code to your email address. Please enter it
+              below.
             </p>
           </div>
           <div className="grid gap-6">
@@ -60,7 +62,7 @@ export default function VerifyEmailPage() {
             </Button>
           </div>
           <div className="text-center text-sm text-muted-foreground">
-            Didn't receive the code?{" "}
+            Did not receive the code?{" "}
             <button
               type="button"
               className="underline underline-offset-4 hover:text-primary"
@@ -69,8 +71,8 @@ export default function VerifyEmailPage() {
                   await signUp?.prepareEmailAddressVerification();
                   setError("New code sent!");
                   setTimeout(() => setError(""), 3000);
-                } catch (err: any) {
-                  setError(err.errors[0]?.message || "Failed to resend code");
+                } catch (err: unknown) {
+                  setError(getErrorMessage(err));
                 }
               }}
             >

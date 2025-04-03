@@ -1,24 +1,30 @@
-"use client"
+"use client";
 
-import { ChartColumnIncreasing, HandCoins, Ambulance, SunSnow, Gem } from "lucide-react"
- 
+import {
+  ChartColumnIncreasing,
+  HandCoins,
+  Ambulance,
+  SunSnow,
+} from "lucide-react";
+
 import {
   Sidebar,
   SidebarHeader,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarFooter
-} from "@workspace/ui/components/sidebar"
+  SidebarFooter,
+} from "@workspace/ui/components/sidebar";
 
-import { NavUser } from "@/components/sidebar/nav-user"
+import { NavUser } from "@/components/sidebar/nav-user";
 
 import { useClerk } from "@clerk/nextjs";
- 
+
+import Image from "next/image";
+
 // Menu items.
 const items = [
   {
@@ -41,8 +47,8 @@ const items = [
     url: "#",
     icon: Ambulance,
   },
-]
- 
+];
+
 export function AppSidebar() {
   const { user: clerkUser } = useClerk();
   if (!clerkUser) return null;
@@ -53,17 +59,22 @@ export function AppSidebar() {
       email: clerkUser.primaryEmailAddress?.emailAddress || "",
       avatar: clerkUser.imageUrl || "",
     },
-  }
-  
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
               <a href="#">
-                <img className="h-9 w-9" src="/logo.png"/>
-                <span className="text-primary font-semibold text-2xl">Revzilla</span>
+                <Image width={36} height={36} src="/logo.png" alt="Image" />
+                <span className="text-primary font-semibold text-2xl">
+                  Revzilla
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -91,5 +102,5 @@ export function AppSidebar() {
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

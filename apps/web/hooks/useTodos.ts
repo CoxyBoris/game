@@ -1,6 +1,10 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TODOS } from "@/queries/todo/todoQueries";
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from "@/queries/todo/todoMutations";
+import {
+  ADD_TODO,
+  TOGGLE_TODO,
+  DELETE_TODO,
+} from "@/queries/todo/todoMutations";
 
 export function useTodos() {
   const { data, loading, error, refetch } = useQuery(GET_TODOS);

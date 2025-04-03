@@ -7,6 +7,8 @@ import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { cn } from "@workspace/ui/lib/utils";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/utils/getErrorMessage";
+import Link from "next/link";
 
 export default function ResetPasswordPage() {
   const [code, setCode] = useState("");
@@ -17,19 +19,19 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const result = await signIn?.attemptFirstFactor({
         strategy: "reset_password_email_code",
         code,
         password: newPassword,
       });
-      
+
       if (result?.status === "complete") {
         router.push("/sign-in?message=passwordResetSuccess");
       }
-    } catch (err: any) {
-      setError(err.errors[0]?.message || "Something went wrong");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     }
   };
 
@@ -73,9 +75,12 @@ export default function ResetPasswordPage() {
           </div>
           <div className="text-center text-sm">
             Remember your password?{" "}
-            <a href="/sign-in" className="underline underline-offset-4 hover:text-primary">
+            <Link
+              href="/sign-in"
+              className="underline underline-offset-4 hover:text-primary"
+            >
               Sign in
-            </a>
+            </Link>
           </div>
         </form>
       </div>

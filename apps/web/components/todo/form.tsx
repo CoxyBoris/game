@@ -11,12 +11,12 @@ export function TodoForm() {
 
   async function handleSubmit() {
     if (!text.trim()) return;
-    await addTodo({ 
+    await addTodo({
       variables: {
         input: {
-          text
-        }
-      }
+          text,
+        },
+      },
     });
     setText("");
     refetch();
@@ -24,7 +24,11 @@ export function TodoForm() {
 
   return (
     <div className="flex gap-2 mb-4">
-      <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="New task..." />
+      <Input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="New task..."
+      />
       <Button onClick={handleSubmit}>Add</Button>
     </div>
   );

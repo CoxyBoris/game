@@ -8,7 +8,9 @@ export function useApolloClient() {
 
   return new ApolloClient({
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URL || "http://localhost:3001/graphql",
+      uri:
+        process.env.NEXT_PUBLIC_GRAPHQL_API_URL ||
+        "http://localhost:3001/graphql",
       fetch: async (uri, options) => {
         const token = await getToken();
         options = options || {};

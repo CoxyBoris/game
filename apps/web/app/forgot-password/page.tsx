@@ -7,6 +7,8 @@ import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { cn } from "@workspace/ui/lib/utils";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/utils/getErrorMessage";
+import Link from "next/link";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -17,7 +19,7 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       await signIn?.create({
         strategy: "reset_password_email_code",
@@ -28,8 +30,8 @@ export default function ForgotPasswordPage() {
       setTimeout(() => {
         router.push("/reset-password");
       }, 1500);
-    } catch (err: any) {
-      setError(err.errors[0]?.message || "Something went wrong");
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
       setSuccessMessage("");
     }
   };
@@ -41,9 +43,12 @@ export default function ForgotPasswordPage() {
           <div className="flex flex-col items-center gap-2 text-center">
             <h1 className="text-2xl font-bold">Reset your password</h1>
             {error && <p className="text-red-500">{error}</p>}
-            {successMessage && <p className="text-green-500">{successMessage}</p>}
+            {successMessage && (
+              <p className="text-green-500">{successMessage}</p>
+            )}
             <p className="text-balance text-sm text-muted-foreground">
-              Enter your email address and we'll send you a code to reset your password.
+              Enter your email address and we will send you a code to reset your
+              password.
             </p>
           </div>
           <div className="grid gap-6">
@@ -64,9 +69,10 @@ export default function ForgotPasswordPage() {
           </div>
           <div className="text-center text-sm">
             Remember your password?{" "}
-            <a href="/sign-in" className="underline underline-offset-4 hover:text-primary">
-              Sign in
-            </a>
+            <Link
+              href="/sign-in"
+              className="underline underline-offset-4 hover:text-primary"
+            ></Link>
           </div>
         </form>
       </div>

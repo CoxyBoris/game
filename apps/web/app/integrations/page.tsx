@@ -1,8 +1,8 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 import { SidebarInset } from "@workspace/ui/components/sidebar";
 import { SiteHeader } from "@/components/site-header/site-header";
